@@ -1,0 +1,6 @@
+obj/
+packages/
+.vs/
+*.nuget.cache
+bin/
+.vscode
