@@ -65,4 +65,5 @@ app.UseSwaggerUI(c =>
 </PropertyGroup>
 ```
 
-<img src="https://i.ibb.co/8gdQZxR/swagger-exemplo.png" alt="swagger-exemplo" border="0">
+## Exemplo Gerado
+<img src="https://i.ibb.co/xqfrTgc/swagger-exemplo.png" alt="swagger-exemplo" border="0">
