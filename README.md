@@ -4,7 +4,7 @@
 
 -   Informações básicas do projeto no topo da documentação
 -   Descrição de cada requisição através do Xml Summary
--   Informaçãoes complementares da requisição com Xml Remarks
+-   Informações complementares da requisição com Xml Remarks
 -   Exemplos de entrada e saída de dados com Xml Example nas classes de Dto
 -   Informações de resposta da requisição com SwaggerResponse
 -   Listando todos os possíveis retornos de uma requisição, separando alguns de forma genérica
