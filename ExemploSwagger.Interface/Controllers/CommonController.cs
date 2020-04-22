@@ -1,3 +1,5 @@
+using System.Net;
+using ExemploSwagger.Interface.Utils;
 using Microsoft.AspNetCore.Mvc;
 using Swashbuckle.AspNetCore.Annotations;
 
@@ -5,8 +7,8 @@ namespace ExemploSwagger.Interface.Controllers
 {
     [ApiController]
     [Route("[controller]")]
-    [SwaggerResponse(400, "Mensagem de erro de regra de negócio", typeof(string))]
-    [SwaggerResponse(500, "Mensagem de erro inesperado contendo o id para consulta", typeof(string))]
+    [SwaggerResponse((int)HttpStatusCode.BadRequest, "Mensagem de erro de regra de negócio", typeof(ErrorMessage))]
+    [SwaggerResponse((int)HttpStatusCode.InternalServerError, "Mensagem de erro de exceção não tratada pela aplicação", typeof(ErrorMessage))]
     public class CommonController : ControllerBase
     {
 

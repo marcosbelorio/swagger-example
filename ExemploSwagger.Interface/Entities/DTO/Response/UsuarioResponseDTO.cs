@@ -1,6 +1,6 @@
 namespace ExemploSwagger.Interface.Entities.DTO.Request
 {
-    public class UsuarioResponseDTO    
+    public class UsuarioResponseDTO
     {
         /// <summary>Id do Usuário consultado</summary> 
         /// <example>150</example>
@@ -15,11 +15,7 @@ namespace ExemploSwagger.Interface.Entities.DTO.Request
         /// <example>zesilva</example>
         public string Login { get; set; }
 
-        /// <summary> Representa o Tipo de Pessoa do Usuário</summary> 
-        /// <remarks>
-        ///     1 - Pessoa Física
-        ///     2 - Pessoa Jurídica
-        /// </remarks>       
+        /// <summary> Representa o Tipo de Pessoa do Usuário</summary>
         /// <example>1</example>
         public int TipoUsuario { get; set; }
     }

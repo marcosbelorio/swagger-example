@@ -47,7 +47,6 @@ namespace ExemploSwagger.Interface
                 var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
                 c.IncludeXmlComments(xmlPath);
                 c.OperationFilter<OperationFilter>();
-                // c.OperationFilter<ExamplesOperationFilter>();
                 c.EnableAnnotations();
             });
             services.AddControllers();

@@ -17,11 +17,16 @@ namespace ExemploSwagger.Interface.Controllers
         }
 
         /// <summary>
-        /// Adiciona um Usuário
+        /// Adiciona um Usuário na base de dados
         /// </summary>
-        [HttpPost]        
+        /// <remarks>
+        /// TipoUsuario (Possíveis entradas) 
+        ///
+        ///     1 - Pessoa Física
+        ///     2 - Pessoa Jurídica
+        /// </remarks> 
+        [HttpPost]
         [SwaggerResponse((int)HttpStatusCode.OK, "Id do usuário adicionado", typeof(int))]
-        [SwaggerResponse((int)HttpStatusCode.BadRequest, Type = typeof(ErrorMessage))]
         public IActionResult Post(UsuarioRequestDTO usuario)
         {
             //recebendo o header informado
@@ -30,7 +35,7 @@ namespace ExemploSwagger.Interface.Controllers
             //simulando uma validação de negócio
             var tipoUsuario = Enum.GetValues(typeof(TipoUsuarioEnum)).Cast<TipoUsuarioEnum>().ToList().Select(e => (int)e).ToList();
             if (!tipoUsuario.Contains(usuario.TipoUsuario))
-                return BadRequest( new ErrorMessage(ErrorsMessages.User_Invalid, HttpStatusCode.BadRequest.ToString()));
+                return BadRequest(new ErrorMessage(ErrorsMessages.User_Invalid, HttpStatusCode.BadRequest.ToString()));
 
             Random rnd = new Random();
 
@@ -48,14 +53,12 @@ namespace ExemploSwagger.Interface.Controllers
         /// <summary>
         /// Recupera um Usuário da base de dados
         /// </summary>
-        [HttpGet("{id}")]        
-        [SwaggerResponse((int)HttpStatusCode.OK, "Id do usuário ", typeof(int))]
-        [SwaggerResponse((int)HttpStatusCode.BadRequest, Type = typeof(ErrorMessage))]
+        [HttpGet("{id:int}")]
+        [SwaggerResponse((int)HttpStatusCode.OK, "Dto com informações do Usuário", typeof(UsuarioResponseDTO))]
         public IActionResult Get(int? id)
         {
-            if(id == null || id <= 0)    
-                 return BadRequest( new ErrorMessage(ErrorsMessages.Item_Conflict, HttpStatusCode.BadRequest.ToString()));
-
+            if (id == null || id <= 0)
+                return BadRequest(new ErrorMessage(ErrorsMessages.Item_Conflict, HttpStatusCode.BadRequest.ToString()));
 
             // simulando Usuário retornando da base
             var usuarioRetorno = new UsuarioResponseDTO
@@ -67,9 +70,6 @@ namespace ExemploSwagger.Interface.Controllers
             };
 
             return Ok(usuarioRetorno);
-
-
         }
-
     }
 }

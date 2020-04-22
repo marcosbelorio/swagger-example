@@ -3,7 +3,7 @@ namespace ExemploSwagger.Interface.Entities.DTO.Request
     /// Mais exemplos em https://mattfrear.com/tag/swagger/
     public class UsuarioRequestDTO
     {
-        /// <summary>Nome Completo do usuário</summary> 
+        /// <summary>Nome Completo do Usuário</summary> 
         /// <example>José da Silva</example>
         public string Nome { get; set; }
 
@@ -11,11 +11,7 @@ namespace ExemploSwagger.Interface.Entities.DTO.Request
         /// <example>zesilva</example>
         public string Login { get; set; }
 
-        /// <summary> Representa o Tipo de Pessoa do Usuário</summary> 
-        /// <remarks>
-        ///     1 - Pessoa Física
-        ///     2 - Pessoa Jurídica
-        /// </remarks>       
+        /// <summary> Representa o Tipo de Pessoa do Usuário</summary>      
         /// <example>1</example>
         public int TipoUsuario { get; set; }
     }

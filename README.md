@@ -2,14 +2,15 @@
 
 ## Customizações contempladas
 
-- Informações básicas do projeto no topo da documentação
-- Descrição de cada requisição através do Xml Summary
-- Informaçãoes complementares para entendimento e exemplos de chamada com Xml Remarks
-- Informações de resposta da requisição com SwaggerResponse
-- Criando respostas padrões para todas as requisições da aplicação onde o retorno não se modifica
-- Adicionando parâmetros de cabeçalho na requisição
+-   Informações básicas do projeto no topo da documentação
+-   Descrição de cada requisição através do Xml Summary
+-   Informaçãoes complementares da requisição com Xml Remarks
+-   Exemplos de entrada e saída de dados com Xml Example nas classes de Dto
+-   Informações de resposta da requisição com SwaggerResponse
+-   Listando todos os possíveis retornos de uma requisição, separando alguns de forma genérica
+-   Adicionando parâmetros de cabeçalho na requisição
 
-(Mais exemplos em https://mattfrear.com/tag/swagger/) 
+(Mais exemplos em https://mattfrear.com/tag/swagger/)
 
 ## Como Implementar
 
@@ -68,4 +69,5 @@ app.UseSwaggerUI(c =>
 ```
 
 ## Exemplo Gerado
-<img src="https://i.ibb.co/xqfrTgc/swagger-exemplo.png" alt="swagger-exemplo" border="0">
+
+<img src="https://i.ibb.co/zFJMxJ7/swagger-exemplo.png" alt="swagger-exemplo" border="0">
