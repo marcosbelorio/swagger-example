@@ -9,6 +9,8 @@
 - Criando respostas padrões para todas as requisições da aplicação onde o retorno não se modifica
 - Adicionando parâmetros de cabeçalho na requisição
 
+(Mais exemplos em https://mattfrear.com/tag/swagger/) 
+
 ## Como Implementar
 
 ### Adicionar os pacotes no projeto

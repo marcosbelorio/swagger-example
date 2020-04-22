@@ -1,6 +1,10 @@
 using System;
 using System.Linq;
-using ExemploSwagger.Interface.Entities;
+using System.Net;
+using ExemploSwagger.Interface.Entities.DTO.Request;
+using ExemploSwagger.Interface.Entities.Enum;
+using ExemploSwagger.Interface.Entities.Model;
+using ExemploSwagger.Interface.Utils;
 using Microsoft.AspNetCore.Mvc;
 using Swashbuckle.AspNetCore.Annotations;
 
@@ -15,42 +19,57 @@ namespace ExemploSwagger.Interface.Controllers
         /// <summary>
         /// Adiciona um Usuário
         /// </summary>
-        /// <remarks>
-        /// Exemplo de chamada:
-        /// 
-        ///     POST usuario
-        ///     {        
-        ///       "Nome": "Marcos Belorio",
-        ///       "Login": "marcos",
-        ///       "TipoUsuario": 1        
-        ///     }
-        ///
-        /// TipoUsuario:
-        ///
-        ///     1 - Pessoa Física
-        ///     2 - Pessoa Jurídica
-        /// </remarks>
-        [HttpPost]
-        [SwaggerResponse(200, "Id do usuário adicionado", typeof(int))]
-        public IActionResult Post(UsuarioEntity usuario)
+        [HttpPost]        
+        [SwaggerResponse((int)HttpStatusCode.OK, "Id do usuário adicionado", typeof(int))]
+        [SwaggerResponse((int)HttpStatusCode.BadRequest, Type = typeof(ErrorMessage))]
+        public IActionResult Post(UsuarioRequestDTO usuario)
         {
             //recebendo o header informado
             string chaveApi = Request.Headers["ChaveApi"];
 
             //simulando uma validação de negócio
-            var tipoUsuario = Enum.GetValues(typeof(TipoUsuario)).Cast<TipoUsuario>().ToList().Select(e => (int)e).ToList();
+            var tipoUsuario = Enum.GetValues(typeof(TipoUsuarioEnum)).Cast<TipoUsuarioEnum>().ToList().Select(e => (int)e).ToList();
             if (!tipoUsuario.Contains(usuario.TipoUsuario))
-                return BadRequest("Tipo Usuário informado não é válido.");
+                return BadRequest( new ErrorMessage(ErrorsMessages.User_Invalid, HttpStatusCode.BadRequest.ToString()));
+
+            Random rnd = new Random();
 
             //simulando a criação de um novo usuário
-            var usuarioDB = new UsuarioEntity
+            var usuarioDB = new Usuario
             {
-                Id = 1,
+                Id = rnd.Next(1, 13),
                 Nome = usuario.Nome,
                 Login = usuario.Login,
                 TipoUsuario = usuario.TipoUsuario
             };
             return Ok(usuarioDB.Id);
         }
+
+        /// <summary>
+        /// Recupera um Usuário da base de dados
+        /// </summary>
+        [HttpGet("{id}")]        
+        [SwaggerResponse((int)HttpStatusCode.OK, "Id do usuário ", typeof(int))]
+        [SwaggerResponse((int)HttpStatusCode.BadRequest, Type = typeof(ErrorMessage))]
+        public IActionResult Get(int? id)
+        {
+            if(id == null || id <= 0)    
+                 return BadRequest( new ErrorMessage(ErrorsMessages.Item_Conflict, HttpStatusCode.BadRequest.ToString()));
+
+
+            // simulando Usuário retornando da base
+            var usuarioRetorno = new UsuarioResponseDTO
+            {
+                Id = id ?? 0,
+                Nome = "Pedro da Silva",
+                Login = "Psilva",
+                TipoUsuario = (int)TipoUsuarioEnum.PessoaFisica
+            };
+
+            return Ok(usuarioRetorno);
+
+
+        }
+
     }
 }
