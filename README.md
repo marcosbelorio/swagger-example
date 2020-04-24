@@ -9,6 +9,7 @@
 -   Informações de resposta da requisição com SwaggerResponse
 -   Listando todos os possíveis retornos de uma requisição, separando alguns de forma genérica
 -   Adicionando parâmetros de cabeçalho na requisição
+-   Autenticação das requisições via Token
 
 (Mais exemplos em https://mattfrear.com/tag/swagger/)
 
@@ -44,6 +45,34 @@ services.AddSwaggerGen(c =>
             Url = new Uri("https://example.com/license"),
         }
     });
+    c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
+    {
+        Description = @"JWT Authorization Header.<br />
+            Preencha: 'Bearer' [espaço] seu token.<br />
+            Exemplo: 'Bearer 12345abcdef'",
+        Name = "Authorization",
+        In = ParameterLocation.Header,
+        Type = SecuritySchemeType.ApiKey,
+        Scheme = "Bearer"
+    });
+    c.AddSecurityRequirement(new OpenApiSecurityRequirement()
+    {
+        {
+            new OpenApiSecurityScheme
+            {
+                Reference = new OpenApiReference
+                {
+                    Type = ReferenceType.SecurityScheme,
+                    Id = "Bearer"
+                },
+                Scheme = "oauth2",
+                Name = "Bearer",
+                In = ParameterLocation.Header,
+
+            },
+            new List<string>()
+        }
+    });
     var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
     var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
     c.IncludeXmlComments(xmlPath);
@@ -70,4 +99,4 @@ app.UseSwaggerUI(c =>
 
 ## Exemplo Gerado
 
-<img src="https://i.ibb.co/zFJMxJ7/swagger-exemplo.png" alt="swagger-exemplo" border="0">
+<img src="https://i.ibb.co/Ld1R6Pn/swagger-exemplo.png" alt="swagger-exemplo" border="0">
