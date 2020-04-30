@@ -97,6 +97,15 @@ app.UseSwaggerUI(c =>
 </PropertyGroup>
 ```
 
+### Configuração caso exista Xml Summary, Remarks ou Example em projetos referenciados
+
+No arquivo Startup, mudar a forma de leitura dos arquivos xml para este:
+```csharp
+List<string> xmlFiles = Directory.GetFiles(AppContext.BaseDirectory, "*.xml", SearchOption.TopDirectoryOnly).ToList();
+xmlFiles.ForEach(xmlFile => c.IncludeXmlComments(xmlFile));
+```
+Adicionar a tag "GenerateDocumentationFile" no .csproj do projeto referenciado também.
+
 ## Exemplo Gerado
 
 <img src="https://i.ibb.co/Ld1R6Pn/swagger-exemplo.png" alt="swagger-exemplo" border="0">
